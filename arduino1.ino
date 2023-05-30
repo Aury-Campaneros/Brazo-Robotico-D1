@@ -74,10 +74,10 @@ void loop() {
     convertedValuePot1 = map(EntradaPot1, 0, 1023, 0, 180);
     //Serial.println(convertedValuePot1);
     //Serial.write(convertedValue);
-    
     delay(200);
+    
     //convertir int a string
-    strNumero = EntradaPot1;
+    strNumero = convertedValuePot1;
     //convertir string a char
     strNumero.toCharArray(charNumero,4);
     Serial.write(charNumero);
@@ -115,6 +115,14 @@ void loop() {
     Serial.println(convertedValuePot2);
     //Serial.write(convertedValue);
     delay(200);
+
+    //convertir int a string
+    strNumero = convertedValuePot2;
+    //convertir string a char
+    strNumero.toCharArray(charNumero,4);
+    Serial.write(charNumero);
+    Serial.print('\n');
+    delay(200);
   }
 
   if(pot3 == true){
@@ -147,6 +155,14 @@ void loop() {
     Serial.println(convertedValuePot3);
     //Serial.write(convertedValue);
     delay(200);
+
+    //convertir int a string
+    strNumero = convertedValuePot3;
+    //convertir string a char
+    strNumero.toCharArray(charNumero,4);
+    Serial.write(charNumero);
+    Serial.print('\n');
+    delay(200);
   }
 
   if(pot4 == true){
@@ -178,6 +194,14 @@ void loop() {
     convertedValuePot4 = map(EntradaPot4, 0, 1023, 0, 180);
     Serial.println(convertedValuePot4);
     //Serial.write(convertedValue);
+    delay(200);
+
+    //convertir int a string
+    strNumero = convertedValuePot4;
+    //convertir string a char
+    strNumero.toCharArray(charNumero,4);
+    Serial.write(charNumero);
+    Serial.print('\n');
     delay(200);
   }
 }
