@@ -82,11 +82,10 @@ void loop() {
     Serial.print('\n');
     delay(200);
     
-    lcd_1.clear();
-    lcd_1.setCursor(0, 0);
-    lcd_1.print("Moviendo Servo");
+    lcd_1.setCursor(0, 0); //Mostrar en LCD movimiento del Servo
+    lcd_1.print(" Moviendo Servo ");
     lcd_1.setCursor(0, 1);
-    lcd_1.print("de Base");
+    lcd_1.print("    de Base     ");
   }
 
   if(pot2 == true){ //Cuando se activa la bandera del Potenciometro 2
@@ -124,11 +123,10 @@ void loop() {
     Serial.print('\n');
     delay(200);
     
-    lcd_1.clear();
-    lcd_1.setCursor(0, 0);
-    lcd_1.print("Moviendo Servo");
+    lcd_1.setCursor(0, 0); //Mostrar en LCD movimiento del Servo 2
+    lcd_1.print(" Moviendo Servo ");
     lcd_1.setCursor(0, 1);
-    lcd_1.print("de Brazo 1");
+    lcd_1.print("   de Brazo 1   ");
   }
 
   if(pot3 == true){ //Cuando se activa la bandera del Potenciometro 2
@@ -169,11 +167,10 @@ void loop() {
     Serial.print('\n');
     delay(200);
     
-    lcd_1.clear();
-    lcd_1.setCursor(0, 0);
-    lcd_1.print("Moviendo Servo");
+    lcd_1.setCursor(0, 0); //Mostrar en LCD movimiento del Servo 3
+    lcd_1.print(" Moviendo Servo ");
     lcd_1.setCursor(0, 1);
-    lcd_1.print("de Brazo 2");
+    lcd_1.print("   de Brazo 2   ");
     
   }
 
@@ -213,11 +210,10 @@ void loop() {
     Serial.print('\n');
     delay(200);
     
-    lcd_1.clear();
-    lcd_1.setCursor(0, 0);
-    lcd_1.print("Moviendo Servo");
+    lcd_1.setCursor(0, 0); //Mostrar en LCD movimiento del Servo 3
+    lcd_1.print(" Moviendo Servo ");
     lcd_1.setCursor(0, 1);
-    lcd_1.print("de Garra");
+    lcd_1.print("    de Garra    ");
     
   }
 }
@@ -228,8 +224,7 @@ ISR(PCINT2_vect) {
    	if ( PIND & (1 << PIND2)){       
       pot1 = false; //Mantener bandera del potenciometro 1 falsa
     } else { //Si la entrada 2 cambia a 0
-      PORTB |= B00000001; //Cambiar a bandera del potenciometro 1 a verdadera
-      pot1 = true;
+      pot1 = true; //Cambiar a bandera del potenciometro 1 a verdadera
     }
   sei(); // Habilitar interrupciones globales
 
