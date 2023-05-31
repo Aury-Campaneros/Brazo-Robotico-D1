@@ -13,6 +13,10 @@ volatile bool pot2 = false;          //Bandera Potenciometro 2
 volatile bool pot3 = false;          //Bandera Potenciometro 3
 volatile bool pot4 = false;          //Bandera Potenciometro 4
 
+
+#include <Adafruit_LiquidCrystal.h>
+Adafruit_LiquidCrystal lcd_1(0);
+
 void setup() {
   // Configurar PD2 como entrada con pull-up
   DDRD &= ~(1 << DDD2);
@@ -38,15 +42,16 @@ void setup() {
   PCMSK2 |= (1 << PCINT20);  // Seleccionar el pin a monitorear en el registro PCMSK2, Bit 20 corresponde a PD4
   PCMSK2 |= (1 << PCINT21);  // Seleccionar el pin a monitorear en el registro PCMSK2, Bit 20 corresponde a PD5
 
+  lcd_1.begin(16, 2);
   Serial.begin(9600);
 }
 
 void loop() {
   if(pot1 == true){ //Cuando se activa la bandera del Potenciometro 1
     //Lectura Analogica
-    ADMUX = 4;              //canal 4 = PC4 = A4
+    ADMUX = 0;              //canal 0 = PC0 = A0
     // Configurar el pin como entrada
-    DDRC &= ~(1 << PC4);
+    DDRC &= ~(1 << PC0);
     //Vref interno = 01
     ADMUX &= ~(1<<REFS1);
     ADMUX |= (1<<REFS0);
@@ -76,6 +81,12 @@ void loop() {
     Serial.write(charNumero);
     Serial.print('\n');
     delay(200);
+    
+    lcd_1.clear();
+    lcd_1.setCursor(0, 0);
+    lcd_1.print("Moviendo Servo");
+    lcd_1.setCursor(0, 1);
+    lcd_1.print("de Base");
   }
 
   if(pot2 == true){ //Cuando se activa la bandera del Potenciometro 2
@@ -112,6 +123,12 @@ void loop() {
     Serial.write(charNumero);
     Serial.print('\n');
     delay(200);
+    
+    lcd_1.clear();
+    lcd_1.setCursor(0, 0);
+    lcd_1.print("Moviendo Servo");
+    lcd_1.setCursor(0, 1);
+    lcd_1.print("de Brazo 1");
   }
 
   if(pot3 == true){ //Cuando se activa la bandera del Potenciometro 2
@@ -151,6 +168,13 @@ void loop() {
     Serial.write(charNumero);
     Serial.print('\n');
     delay(200);
+    
+    lcd_1.clear();
+    lcd_1.setCursor(0, 0);
+    lcd_1.print("Moviendo Servo");
+    lcd_1.setCursor(0, 1);
+    lcd_1.print("de Brazo 2");
+    
   }
 
   if(pot4 == true){ //Cuando se activa la bandera del Potenciometro 4
@@ -188,6 +212,13 @@ void loop() {
     Serial.write(charNumero);
     Serial.print('\n');
     delay(200);
+    
+    lcd_1.clear();
+    lcd_1.setCursor(0, 0);
+    lcd_1.print("Moviendo Servo");
+    lcd_1.setCursor(0, 1);
+    lcd_1.print("de Garra");
+    
   }
 }
 
