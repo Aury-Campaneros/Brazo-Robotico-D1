@@ -111,7 +111,7 @@ void loop() {
     //Serial.println(adcValue);
     //delay(200);
     int EntradaPot2 = adcValue;
-    convertedValuePot2 = map(EntradaPot2, 0, 1023, 0, 180);
+    convertedValuePot2 = map(EntradaPot2, 0, 1023, 130, 180);
     Serial.println(convertedValuePot2);
     //Serial.write(convertedValue);
     delay(200);
