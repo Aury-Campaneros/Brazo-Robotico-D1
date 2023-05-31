@@ -1,8 +1,16 @@
+#include <EEPROM.h> // libreria EEPROM
+
 // ARDUINO ESCLAVO
 #include <Servo.h>
 char charNumero_1;
 String strNumero_1;
 int numero2;
+
+//Variables para almacenar datos en EEPROM
+int servo6;
+int servo9;
+int servo10;
+int servo11;
 
 //declaración de servos
 Servo servo_6; 	//servo del base
@@ -13,7 +21,7 @@ Servo servo_11;	//servo pinza
 void setup()
 {
   //declaración de entradas y salidas
-  DDRC = 0b11110000;
+  DDRC = 0b11000000;
   //servos
   servo_6.attach(6, 500, 2500);
   servo_9.attach(9, 500, 2500);
@@ -32,21 +40,43 @@ void loop()
  	//convertir string to int
     numero2 = cadena.toInt();
     Serial.println(numero2);
-    if(PINC==0b00001110){
+    if(PINC==0b00111110){
       servo_6.write(numero2);
       delay(15);
+      servo6 = numero2;
     }
-    if(PINC==0b00001101){
+    if(PINC==0b00111101){
       servo_9.write(numero2);
       delay(15);
+      servo9 = numero2;
     }
-    if(PINC==0b00001011){
+    if(PINC==0b00111011){
       servo_10.write(numero2);
       delay(15);
+      servo10 = numero2;
     }
-    if(PINC==0b00000111){
+    if(PINC==0b00110111){
       servo_11.write(numero2);
       delay(15);
+      servo11 = numero2;
     }
    }
+  if(PINC==0b00101111){
+    EEPROM.write(0, servo6);
+    EEPROM.write(1, servo9);
+    EEPROM.write(2, servo10);
+    EEPROM.write(3, servo11);
+    Serial.println("Datos Guardados");
+  	}
+  
+  if(PINC==0b00011111){
+    servo_6.write(EEPROM.read(0));
+    delay(500);
+    servo_9.write(EEPROM.read(1));
+    delay(500);
+    servo_10.write(EEPROM.read(2));
+    delay(500);
+    servo_11.write(EEPROM.read(3));
+    delay(500);
+  	}
   }
