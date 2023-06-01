@@ -13,7 +13,6 @@ volatile bool pot2 = false;          //Bandera Potenciometro 2
 volatile bool pot3 = false;          //Bandera Potenciometro 3
 volatile bool pot4 = false;          //Bandera Potenciometro 4
 
-
 #include <LiquidCrystal_I2C.h> //Libreria de la LCD
 LiquidCrystal_I2C lcd(0x27,16,2); //Direccion de la LCD
 
@@ -30,7 +29,7 @@ void setup() {
   DDRD &= ~(1 << DDD4);
   PORTD |= (1 << PORTD4);
 
-  // Configurar PD4 como entrada con pull-up
+  // Configurar PD5 como entrada con pull-up
   DDRD &= ~(1 << DDD5);
   PORTD |= (1 << PORTD5);
 
@@ -46,12 +45,12 @@ void setup() {
   lcd.backlight();
   lcd.clear();
   lcd.setCursor(0,0);
-  lcd.print("     BRAZO      "); 
+  lcd.print("     BRAZO      "); //Mostrar mensaje de Bienvenida
   lcd.setCursor (0,1);
-  lcd.print("    ROBOTICO    ");
+  lcd.print("    ROBOTICO    "); //Mensaje de Bienvenida
   lcd.display();
 
-  Serial.begin(9600);
+  Serial.begin(9600); //Velocidad de comunicación
 }
 
 void loop() {
@@ -244,7 +243,7 @@ ISR(PCINT2_vect) {
    	if ( PIND & (1 << PIND2)){       
       pot1 = false; //Mantener bandera del potenciometro 1 falsa
     } else { //Si la entrada 2 cambia a 0
-      pot1 = true; //Cambiar a bandera del potenciometro 1 a verdadera
+      pot1 = true; //Cambiar la bandera del potenciometro 1 a verdadera
     }
   sei(); // Habilitar interrupciones globales
 
@@ -253,7 +252,7 @@ ISR(PCINT2_vect) {
    	if ( PIND & (1 << PIND3) ) {       
       pot2 = false; //Mantener bandera del potenciometro 2 falsa
     } else { //Si la entrada 3 cambia a 0
-      pot2 = true; //Cambiar a bandera del potenciometro 2 a verdadera
+      pot2 = true; //Cambiar la bandera del potenciometro 2 a verdadera
     }
   sei(); // Habilitar interrupciones globales
 
@@ -262,7 +261,7 @@ ISR(PCINT2_vect) {
    	if ( PIND & (1 << PIND4) ) {       
       pot3 = false; //Mantener bandera del potenciometro 3 falsa
     } else { //Si la entrada 2 cambia a 0
-      pot3 = true; //Cambiar a bandera del potenciometro 3 a verdadera
+      pot3 = true; //Cambiar la bandera del potenciometro 3 a verdadera
     }
   sei(); // Habilitar interrupciones globales
 
@@ -271,7 +270,7 @@ ISR(PCINT2_vect) {
    	if ( PIND & (1 << PIND5) ) {       
       pot4 = false; //Mantener bandera del potenciometro 4 falsa
     } else { //Si la entrada 5 cambia a 0
-      pot4 = true; //Cambiar a bandera del potenciometro 4 a verdadera
+      pot4 = true; //Cambiar la bandera del potenciometro 4 a verdadera
     }
   sei(); // Habilitar interrupciones globales
 }
