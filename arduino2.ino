@@ -12,6 +12,9 @@ int servo9;
 int servo10;
 int servo11;
 
+//variable para el timers
+int retorno=0;
+int contador=0;
 //declaración de servos
 Servo servo_6; 	//servo del base
 Servo servo_9;	//servo lateral 1
@@ -29,6 +32,22 @@ void setup()
   servo_11.attach(11, 500, 2500);
   Serial.begin(9600);		//velocidad de transmición
   delay(500);
+  
+  //declaración del timer 2
+  cli(); // stop interrupts
+  TCCR2A = 0; // set entire TCCR2A register to 0
+  TCCR2B = 0; // same for TCCR2B
+  TCNT2  = 0; // initialize counter value to 0
+  // set compare match register for 15037.593984962406 Hz increments
+  OCR2A = 132; // = 16000000 / (8 * 15037.593984962406) - 1 (must be <256)
+  // turn on CTC mode
+  TCCR2B |= (1 << WGM21);
+  // Set CS22, CS21 and CS20 bits for 8 prescaler
+  TCCR2B |= (0 << CS22) | (1 << CS21) | (0 << CS20);
+  // enable timer compare interrupt
+  TIMSK2 |= (1 << OCIE2A);
+  sei(); // allow interrupts
+
 }
 
 void loop()
@@ -78,5 +97,28 @@ void loop()
     delay(500);
     servo_11.write(EEPROM.read(3));
     delay(500);
+    retorno =1;
+    delay(15000);
   	}
   }
+
+//Timer2 - retorna los servos a su posición original 
+// luego de ejecutarse la EEPROM
+
+ISR(TIMER2_COMPA_vect){
+  contador++;
+  if (contador == 15000){
+    if (retorno==1){
+      servo_6.write(0);
+      delay(500);
+      servo_9.write(130);
+      delay(500);
+      servo_10.write(0);
+      delay(500);
+      servo_11.write(0);
+      delay(500);
+      contador=0;
+      retorno=0;
+    }
+  }
+}
