@@ -13,9 +13,8 @@ volatile bool pot2 = false;          //Bandera Potenciometro 2
 volatile bool pot3 = false;          //Bandera Potenciometro 3
 volatile bool pot4 = false;          //Bandera Potenciometro 4
 
-
-#include <Adafruit_LiquidCrystal.h>
-Adafruit_LiquidCrystal lcd_1(0);
+#include <Adafruit_LiquidCrystal.h> //Libreria para LCD
+Adafruit_LiquidCrystal lcd_1(0); //Definir nombre y posicion de LCD
 
 void setup() {
   // Configurar PD2 como entrada con pull-up
@@ -30,7 +29,7 @@ void setup() {
   DDRD &= ~(1 << DDD4);
   PORTD |= (1 << PORTD4);
 
-  // Configurar PD4 como entrada con pull-up
+  // Configurar PD5 como entrada con pull-up
   DDRD &= ~(1 << DDD5);
   PORTD |= (1 << PORTD5);
 
@@ -44,7 +43,7 @@ void setup() {
 
   lcd_1.begin(16, 2);
   lcd_1.setCursor(0,0);
-  lcd_1.print("     BRAZO      "); 
+  lcd_1.print("     BRAZO      "); //Mostrar en LCD mensaje default
   lcd_1.setCursor (0,1);
   lcd_1.print("    ROBOTICO    ");
   
@@ -69,7 +68,6 @@ void loop() {
     ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); 
 
     ADCSRA |= (1 << ADEN);    // Habilitar el ADC
-    //DDRC = 0;
 
     ADCSRA |= (1 << ADSC);        // Iniciar la conversión
     while (ADCSRA & (1 << ADSC)); // Esperar a que la conversión termine
@@ -110,7 +108,6 @@ void loop() {
     ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); 
 
     ADCSRA |= (1 << ADEN);    // Habilitar el ADC
-    //DDRC = 0;
 
     ADCSRA |= (1 << ADSC);        // Iniciar la conversión
     while (ADCSRA & (1 << ADSC)); // Esperar a que la conversión termine
@@ -151,14 +148,11 @@ void loop() {
     ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); 
 
     ADCSRA |= (1 << ADEN);    // Habilitar el ADC
-    //DDRC = 0;
 
     ADCSRA |= (1 << ADSC);        // Iniciar la conversión
     while (ADCSRA & (1 << ADSC)); // Esperar a que la conversión termine
     uint16_t adcValue = ADC;      // obtener los 10 bits de la conversión ADCH:ADCL
     
-    //Serial.println(adcValue);
-    //delay(200);
     int EntradaPot3 = adcValue; //Obtener lectura del potenciometro 3
     convertedValuePot3 = map(EntradaPot3, 0, 1023, 0, 180); //Convertir los 1024 posibles datos del Potenciometro a 181 datos
     Serial.println(convertedValuePot3);
@@ -196,7 +190,6 @@ void loop() {
     ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); 
 
     ADCSRA |= (1 << ADEN);    // Habilitar el ADC
-    //DDRC = 0;
 
     ADCSRA |= (1 << ADSC);        // Iniciar la conversión
     while (ADCSRA & (1 << ADSC)); // Esperar a que la conversión termine
