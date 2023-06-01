@@ -43,6 +43,11 @@ void setup() {
   PCMSK2 |= (1 << PCINT21);  // Seleccionar el pin a monitorear en el registro PCMSK2, Bit 20 corresponde a PD5
 
   lcd_1.begin(16, 2);
+  lcd_1.setCursor(0,0);
+  lcd_1.print("     BRAZO      "); 
+  lcd_1.setCursor (0,1);
+  lcd_1.print("    ROBOTICO    ");
+  
   Serial.begin(9600);
 }
 
@@ -215,6 +220,13 @@ void loop() {
     lcd_1.setCursor(0, 1);
     lcd_1.print("    de Garra    ");
     
+  }
+  
+  if(pot1 == false && pot2 == false && pot3 == false && pot4 == false ){
+  lcd_1.setCursor(0,0);
+  lcd_1.print("     BRAZO      "); 
+  lcd_1.setCursor (0,1);
+  lcd_1.print("    ROBOTICO    ");
   }
 }
 
